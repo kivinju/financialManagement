@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.nju.dao.Application;
 import cn.edu.nju.dao.ApplicationDAO;
+import cn.edu.nju.dao.ApplicationId;
+import cn.edu.nju.dao.ItemDAO;
 import cn.edu.nju.dao.Project;
 import cn.edu.nju.dao.ProjectDAO;
 import cn.edu.nju.dao.Upmapping;
 import cn.edu.nju.dao.UpmappingDAO;
 import cn.edu.nju.dao.User;
+import cn.edu.nju.dao.UserDAO;
 
 @Service
 public class ApplicationService {
@@ -21,6 +24,12 @@ public class ApplicationService {
 	ApplicationDAO applicationDAO;
 	@Resource
 	UpmappingDAO upmappingDAO;
+	@Resource
+	ProjectDAO projectDAO;
+	@Resource
+	UserDAO userDAO;
+	@Resource
+	ItemDAO itemDAO;
 
 	public List<Application> getApplicationsFromLeader(int sessionId) {
 		List<Upmapping> list=upmappingDAO.findByUserID(sessionId, Upmapping.ROLE_LEADER);
@@ -34,6 +43,15 @@ public class ApplicationService {
 	public List<Application> getApplicationsFromMember(int sessionId) {
 		List<Application> applications=applicationDAO.findByProperty("id.user.uid", sessionId);
 		return applications;
+	}
+
+	public void changeApplicationState(short state, int projectId,
+			int userId, int itemId) {
+		// TODO Auto-generated method stub
+		ApplicationId id=new ApplicationId(userDAO.findById(userId), projectDAO.findById(projectId), itemDAO.findById(itemId));
+		Application application=applicationDAO.findById(id);
+		application.setState(state);
+		applicationDAO.merge(application);
 	}
 	
 	

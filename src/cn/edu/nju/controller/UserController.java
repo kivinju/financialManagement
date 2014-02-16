@@ -16,8 +16,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.nju.dao.Application;
+import cn.edu.nju.dao.ApplicationId;
 import cn.edu.nju.dao.Project;
 import cn.edu.nju.dao.Upmapping;
 import cn.edu.nju.service.ApplicationService;
@@ -67,9 +69,26 @@ public class UserController {
 		Map<Application, Short> map2=new HashMap<Application, Short>();
 		List<Application> applications2=applicationService.getApplicationsFromMember(sessionId);
 		for (Application application : applications2) {
-			map.put(application, projectService.getRateByPidIid(application.getId().getProject(),application.getId().getItem()));
+			System.out.println("app"+applications2.size());
+			map2.put(application, projectService.getRateByPidIid(application.getId().getProject(),application.getId().getItem()));
 		}
 		model.addAttribute("applications", map2);
 		return "user/userHome";
 	}
+	
+	@RequestMapping(value="user/confirmApplication")
+	@ResponseBody
+	public String confirmApplication(HttpServletRequest request){
+		int projectId=Integer.parseInt(request.getParameter("projectId"));
+		int userId=Integer.parseInt(request.getParameter("userId"));
+		int itemId=Integer.parseInt(request.getParameter("itemId"));
+		applicationService.changeApplicationState(Application.WAITCHECKER,projectId,userId,itemId);
+		return "success";
+	}
+	
+	@RequestMapping(value="user/rejectApplication")
+	public String rejectApplication(HttpServletRequest request){
+		return "index";
+	}
+	
 }

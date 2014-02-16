@@ -22,6 +22,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".ver_confirm").click(function(){
+				var projectid=$(this).parent().parent().find(".ver_project").text();
+				var userid=$(this).parent().parent().find(".ver_user").text();
+				var itemid=$(this).parent().parent().find(".ver_item").attr("id");
+				var sure=confirm("Are you sure to confirm this application?");
+			if(sure){
+				$(this).parent().parent().addClass("choose");
+				$.ajax({  
+                   type: "GET",  
+                   url: "user/confirmApplication",  
+                   data: {projectId:projectid,userId:userid,itemId:itemid},  
+                    contentType: 'application/json',
+                   success:function(data){
+                       alert("You have successfully confirm this application!");
+                   	   $(".choose").fadeOut("slow");  
+                   }  
+            	})
+			}
+			})
+		})
+	</script>
+
   </head>
   
   <body>
@@ -107,16 +132,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<c:forEach var="map2" items="${verify }">
 				<c:set var="ver" value="${map2.key }" ></c:set>
 				<tr>
-					<td>${ver.id.project.pid }</td>
+					<td class="ver_project" >${ver.id.project.pid }</td>
 					<td>${ver.id.project.description }</td>
-					<td>${ver.id.user.uid }</td>
+					<td class="ver_user" >${ver.id.user.uid }</td>
 					<td>${ver.id.user.uname }</td>
-					<td>${ver.id.item.name }</td>
+					<td id="${ver.id.item.iid }" class="ver_item" >${ver.id.item.name }</td>
 					<td>${ver.amount }</td>
 					<td>${map2.value }%</td>
 					<td><fmt:parseNumber value="${(ver.amount*map2.value/100)}" integerOnly="true"/></td>
 					<td><fmt:formatDate type="date" dateStyle="long" value="${ver.time }" /></td>
-					<td><a href='<c:url value="" />'>批准</a></td>
+					<td><button class="ver_confirm">批准</button></td>
+					<td><button class="ver_reject">不批准</button></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -135,10 +161,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>到手金额</td>
 				<td>提交时间</td>
 				<td>状态</td>
+				<td>修改重提交</td>
 			</tr>
 		</thead>
 		<tbody>
-			${applications }
 			<c:forEach var="map3" items="${applications }">
 				<c:set var="ver" value="${map3.key }" ></c:set>
 				<tr>
@@ -155,8 +181,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:when test="${ver.state==1 }">财务审核中</c:when>
 						<c:when test="${ver.state==2 }">通过</c:when>
 						<c:when test="${ver.state==3 }">重写</c:when>
+						<c:otherwise>未知状态</c:otherwise>
 					</c:choose>
 					</td>
+					<td><a href='<c:url value="" />'>修改</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
