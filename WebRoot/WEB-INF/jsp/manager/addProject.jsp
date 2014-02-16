@@ -55,13 +55,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:forEach>
 		<hr />
 		Members:<c:forEach items="${userlist }" var="user" varStatus="userStatus">
-		<input type="checkbox" name="members" value="${user.uid }" <c:if test="${fn:containsIgnoreCase(fn:join(members,'|'),user.uid) }">checked</c:if> >${user.uname }
+		<c:set var="uid">${user.uid}</c:set>
+		<input type="checkbox" name="members" value="${user.uid }" <c:if test="${fn:containsIgnoreCase(fn:join(members,'|'),uid) }">checked</c:if> >${user.uname }
 		</c:forEach>
 		<hr />
-		报销：
+		报销：(比例为1到100的整数)
 		<c:forEach items="${itemlist }" var="item" varStatus="itemStatus">
-			<input type="checkbox" name="item" value="${item.iid }" />${item.name }
-			<input type="number" name="${item.iid }" max="100" min="1" value="0" disabled="disabled"/>
+			<c:set var="itemid">${item.iid}</c:set>
+			<c:choose>
+				<c:when test="${fn:containsIgnoreCase(fn:join(items,'|'),itemid) }">
+					<br /><input type="checkbox" name="item" value="${item.iid }" checked  />${item.name }
+					<input type="number" name="${item.iid }" max="100" min="1" value="${item.iid }" />
+				</c:when>
+				<c:otherwise>
+					<br /><input type="checkbox" name="item" value="${item.iid }"/>${item.name }
+					<input type="number" name="${item.iid }" max="100" min="1" disabled="disabled" value="0" />
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
 		<br /><input type="submit" value="submit" />
 	</form>

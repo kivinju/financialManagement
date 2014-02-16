@@ -1,5 +1,7 @@
 package cn.edu.nju.dao;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
@@ -147,5 +149,11 @@ public class ApplicationDAO extends HibernateDaoSupport {
 	public static ApplicationDAO getFromApplicationContext(
 			ApplicationContext ctx) {
 		return (ApplicationDAO) ctx.getBean("ApplicationDAO");
+	}
+
+	public List<Application> findByProjectId(Integer pid,
+			short applicationRole) {
+		String queryString = "from Application as model where model.id.project.pid= "+pid+" and model.state = ?";
+		return getHibernateTemplate().find(queryString, applicationRole);
 	}
 }

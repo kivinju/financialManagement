@@ -1,20 +1,21 @@
-<!-- 此页面为每个页面的头 -->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,cn.edu.nju.dao.User"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 id:<%=session.getAttribute("userid") %>
 <br />name:<%=session.getAttribute("username") %>
-<% String role="";
-		if ((Short)session.getAttribute("userrole") == User.ROLE_MANAGER) {
-			role="manager";
-		} else if ((Short)session.getAttribute("userrole") == User.ROLE_USER) {
-			role="user";
-		} else if ((Short)session.getAttribute("userrole") == User.ROLE_DIRECTOR) {
-			role="director";
-		} else if ((Short)session.getAttribute("userrole") == User.ROLE_CHECKER) {
-			role="checkor";
+<% 		String role="未知";
+		Short userrole=(Short) session.getAttribute("userrole");
+		if(userrole==1){//User.ROLE_USER){
+			role="用户";
+		}else if(userrole==0){//User.ROLE_MANAGER){
+			role="管理员";
+		}else if(userrole==2){//User.ROLE_CHECKER){
+			role="审核员";
+		}else if(userrole==3){//User.ROLE_DIRECTOR){
+			role="财务主管";
 		}
  %>
 <br />role:<%=role %>
+<br /><a href="logout">logout</a>
 <hr />

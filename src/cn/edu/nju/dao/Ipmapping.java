@@ -13,8 +13,8 @@ public class Ipmapping extends AbstractIpmapping implements
 	}
 
 	/** full constructor */
-	public Ipmapping(IpmappingId id, Short rate) {
-		super(id, rate);
+	public Ipmapping(IpmappingId id, Short rate, Integer amount) {
+		super(id, rate, amount);
 	}
 
 }

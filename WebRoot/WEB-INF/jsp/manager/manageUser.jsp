@@ -66,23 +66,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><%=user.getPassword() %></td>
 			<td><%=user.getCardnum() %></td>
 			<td><%=user.getBanknum() %></td>
-	<% String userrole="";
-	switch (user.getRole()){
-		case User.ROLE_MANAGER:
-			userrole="manager";
-			break;
-		case User.ROLE_USER:
-			userrole="user";
-			break;
-		case User.ROLE_DIRECTOR:
-			userrole="director";
-			break;
-		case User.ROLE_CHECKER:
-			userrole="checkor";
-			break;
-	}
+	<% String roleh="未知";
+		Short userroleh=user.getRole();
+		//System.out.println(userroleh);
+		if(userroleh==1){//User.ROLE_USER){
+			roleh="用户";
+		}else if(userroleh==0){//User.ROLE_MANAGER){
+			roleh="管理员";
+		}else if(userroleh==2){//User.ROLE_CHECKER){
+			roleh="审核员";
+		}else if(userroleh==3){//User.ROLE_DIRECTOR){
+			roleh="财务主管";
+		}
  %>
-			<td><%=userrole %></td>
+			<td><%=roleh %></td>
 			<td><a href="manager/revise?id=<%=user.getUid() %>">revise</a></td>
 			<td><button class="delete">delete</button></td>
 		</tr>

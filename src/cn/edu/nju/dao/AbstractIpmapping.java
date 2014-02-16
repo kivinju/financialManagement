@@ -11,6 +11,7 @@ public abstract class AbstractIpmapping implements java.io.Serializable {
 
 	private IpmappingId id;
 	private Short rate;
+	private Integer amount;
 
 	// Constructors
 
@@ -19,9 +20,10 @@ public abstract class AbstractIpmapping implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public AbstractIpmapping(IpmappingId id, Short rate) {
+	public AbstractIpmapping(IpmappingId id, Short rate, Integer amount) {
 		this.id = id;
 		this.rate = rate;
+		this.amount = amount;
 	}
 
 	// Property accessors
@@ -40,6 +42,14 @@ public abstract class AbstractIpmapping implements java.io.Serializable {
 
 	public void setRate(Short rate) {
 		this.rate = rate;
+	}
+
+	public Integer getAmount() {
+		return this.amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 
 }

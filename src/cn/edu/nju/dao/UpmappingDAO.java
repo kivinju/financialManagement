@@ -89,6 +89,29 @@ public class UpmappingDAO extends HibernateDaoSupport {
 		}
 	}
 
+	//add by kivin
+	public List findByProjectID(int projectID) {
+		log.debug("finding Upmapping instance with property: porjectID, value: " + projectID);
+		try {
+			String queryString = "from Upmapping as model where model.id.project.pid= ?";
+			return getHibernateTemplate().find(queryString, projectID);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	public List findByUserID(int userid,boolean roleLeader) {
+		log.debug("finding Upmapping instance with property: userID, value: " + userid);
+		try {
+			String queryString = "from Upmapping as model where model.id.user.uid="+userid+" and model.uprole = ?";
+			return getHibernateTemplate().find(queryString, roleLeader);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	
+	
 	public List findByUprole(Object uprole) {
 		return findByProperty(UPROLE, uprole);
 	}

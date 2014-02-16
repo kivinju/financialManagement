@@ -24,6 +24,7 @@ public class IpmappingDAO extends HibernateDaoSupport {
 			.getLogger(IpmappingDAO.class);
 	// property constants
 	public static final String RATE = "rate";
+	public static final String AMOUNT = "amount";
 
 	protected void initDao() {
 		// do nothing
@@ -89,8 +90,23 @@ public class IpmappingDAO extends HibernateDaoSupport {
 		}
 	}
 
+	public List<Ipmapping> findByProjectID(int projectID) {
+		log.debug("finding Ipmapping instance with property: projectID, value: " + projectID);
+		try {
+			String queryString = "from Ipmapping as model where model.id.project.pid= ?";
+			return getHibernateTemplate().find(queryString, projectID);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	
 	public List findByRate(Object rate) {
 		return findByProperty(RATE, rate);
+	}
+
+	public List findByAmount(Object amount) {
+		return findByProperty(AMOUNT, amount);
 	}
 
 	public List findAll() {

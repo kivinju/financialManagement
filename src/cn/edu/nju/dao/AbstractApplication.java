@@ -1,5 +1,7 @@
 package cn.edu.nju.dao;
 
+import java.util.Date;
+
 /**
  * AbstractApplication entity provides the base persistence definition of the
  * Application entity. @author MyEclipse Persistence Tools
@@ -12,6 +14,7 @@ public abstract class AbstractApplication implements java.io.Serializable {
 	private ApplicationId id;
 	private Integer amount;
 	private Short state;
+	private Date time;
 
 	// Constructors
 
@@ -20,10 +23,12 @@ public abstract class AbstractApplication implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public AbstractApplication(ApplicationId id, Integer amount, Short state) {
+	public AbstractApplication(ApplicationId id, Integer amount, Short state,
+			Date time) {
 		this.id = id;
 		this.amount = amount;
 		this.state = state;
+		this.time = time;
 	}
 
 	// Property accessors
@@ -50,6 +55,14 @@ public abstract class AbstractApplication implements java.io.Serializable {
 
 	public void setState(Short state) {
 		this.state = state;
+	}
+
+	public Date getTime() {
+		return this.time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 }

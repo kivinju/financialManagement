@@ -6,7 +6,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder.In;
@@ -120,6 +124,15 @@ public class ProjectController {
 		model.addAttribute("userlist", userList);
 		List<Item> itemList=itemService.getAllItems();
 		model.addAttribute("itemlist", itemList);
+		String[] items=request.getParameterValues("item");
+		model.addAttribute("items", items);
+		Map<Integer, Short> itemMap=new HashMap<Integer, Short>();
+		for (String itemString : items) {
+			int itemId=Integer.parseInt(itemString);
+			Short itemAmount=Short.parseShort(request.getParameter(itemString));
+			model.addAttribute(itemString, itemAmount);
+			itemMap.put(itemId, itemAmount);
+		}
 		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
 			request.setAttribute("message", "please complete this page");
 			return "manager/addProject";
@@ -148,7 +161,7 @@ public class ProjectController {
 		}
 		Project project = new Project(amountint,begin,end);
 		project.setDescription(description);
-		projectService.addProject(project,leaderID,membersID);
+		projectService.addProject(project,leaderID,membersID,itemMap);
 
 		//添加用户成功，进行跳转
 		request.setAttribute("title","Add project successfully");
@@ -197,6 +210,28 @@ public class ProjectController {
 		model.addAttribute("end", df.format(project.getEndDate()));
 		List<User> userList=userService.getAllUserByRole(User.ROLE_USER);
 		model.addAttribute("userlist", userList);
+		List<Item> itemList=itemService.getAllItems();
+		model.addAttribute("itemlist", itemList);
+		Map<Integer, Short> itemMap=projectService.getItemsFromProjectID(projectID);
+		ArrayList<String> temp=new ArrayList<String>();
+		Iterator<Entry<Integer, Short>> iter=itemMap.entrySet().iterator();
+		while (iter.hasNext()) {
+			Entry<Integer, Short> entry=iter.next();
+			String itemString=String.valueOf(entry.getKey());
+			temp.add(itemString);
+			model.addAttribute(itemString, entry.getValue());
+		}
+		model.addAttribute("items", temp.toArray(new String[temp.size()]));
+		temp.clear();
+		int leaderID=projectService.getLeaderFromProjectID(projectID);
+		model.addAttribute("leader", String.valueOf(leaderID));
+		ArrayList<Integer> members=projectService.getMembersFromProjectID(projectID);
+		if (members!=null&&members.size()!=0) {
+			for (Integer integer : members) {
+				temp.add(String.valueOf(integer));
+			}
+			model.addAttribute("members",temp.toArray(new String[temp.size()]));			
+		}
 		return "manager/addProject";
 	}
 	@RequestMapping("/manager/project/reviseProject")
@@ -217,16 +252,32 @@ public class ProjectController {
 			return "template/message";
 		}
 		int id=Integer.parseInt(request.getParameter("projectID"));
+		String leader=request.getParameter("leader");
+		String[] members=request.getParameterValues("members");
 		String description=request.getParameter("description");
 		String amount=request.getParameter("amount");
 		String begindate=request.getParameter("beginDate");
 		String enddate=request.getParameter("endDate");
-		model.addAttribute("projectID",id);
 		model.addAttribute("description", description);
 		model.addAttribute("amount", amount);
 		model.addAttribute("begin", begindate);
 		model.addAttribute("end", enddate);
-		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")) {
+		model.addAttribute("leader",leader);
+		model.addAttribute("members", members);
+		List<User> userList=userService.getAllUserByRole(User.ROLE_USER);
+		model.addAttribute("userlist", userList);
+		List<Item> itemList=itemService.getAllItems();
+		model.addAttribute("itemlist", itemList);
+		String[] items=request.getParameterValues("item");
+		model.addAttribute("items", items);
+		Map<Integer, Short> itemMap=new HashMap<Integer, Short>();
+		for (String itemString : items) {
+			int itemId=Integer.parseInt(itemString);
+			Short itemAmount=Short.parseShort(request.getParameter(itemString));
+			model.addAttribute(itemString, itemAmount);
+			itemMap.put(itemId, itemAmount);
+		}
+		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
 			request.setAttribute("message", "please complete this page");
 			return "manager/addProject";
 		}
@@ -242,10 +293,20 @@ public class ProjectController {
 			request.setAttribute("message", "begin date is after end date");
 			return "manager/addProject";
 		}
+		int leaderID=Integer.parseInt(leader);
+		ArrayList<Integer> membersID=new ArrayList<Integer>();
+		for (String s : members) {
+			int temp=Integer.parseInt(s);
+			if (temp==leaderID) {
+				request.setAttribute("message", "leader and member should not be the same one");
+				return "manager/addProject";
+			}
+			membersID.add(temp);
+		}
 		Project project = new Project(amountint,begin,end);
 		project.setDescription(description);
 		project.setPid(id);
-		projectService.reviseProject(project);
+		projectService.reviseProject(project,leaderID,membersID,itemMap);
 		request.setAttribute("title","revise project successfully");
 		request.setAttribute("message", "Revise project successfully");
 		request.setAttribute("redirect", "projectmanage");
