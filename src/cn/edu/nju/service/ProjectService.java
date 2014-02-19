@@ -103,6 +103,28 @@ public class ProjectService {
 		}
 	}
 
+	public void reviseProject(int projectId, ArrayList<Integer> membersID,
+			Map<Integer, Integer> map) {
+		List<Upmapping> list2=upmappingDAO.findByProjectID(projectId);
+		for (Upmapping upmapping : list2) {
+			if (upmapping.getUprole()==Upmapping.ROLE_MEMBER) {
+				upmappingDAO.delete(upmapping);
+			}
+		}
+		Project project = projectDAO.findById(projectId);
+		for (Integer id : membersID) {
+			upmappingDAO.save(new Upmapping(new UpmappingId(userDAO
+					.findById(id), project), Upmapping.ROLE_MEMBER));
+		}
+		Iterator<Entry<Integer, Integer>> iter = map.entrySet().iterator();
+		while (iter.hasNext()) {
+			Entry<Integer, Integer> entry=iter.next();
+			Ipmapping ipmapping=ipmappingDAO.findById(new IpmappingId(projectDAO.findById(projectId), itemDAO.findById(entry.getKey())));
+			ipmapping.setAmount(entry.getValue());
+			ipmappingDAO.merge(ipmapping);
+		}
+	}
+	
 	public Map<Integer, Short> getItemsFromProjectID(int projectID) {
 		List<Ipmapping> list=ipmappingDAO.findByProjectID(projectID);
 		Map<Integer, Short> map=new HashMap<Integer, Short>();
@@ -169,4 +191,5 @@ public class ProjectService {
 	public Short getRateByPidIid(Project project, Item item) {
 		return ipmappingDAO.findById(new IpmappingId(project, item)).getRate();
 	}
+
 }

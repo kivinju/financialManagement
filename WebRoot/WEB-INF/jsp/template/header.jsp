@@ -18,4 +18,5 @@ id:<%=session.getAttribute("userid") %>
  %>
 <br />role:<%=role %>
 <br /><a href="logout">logout</a>
+<br /><a href="user">home</a>
 <hr />

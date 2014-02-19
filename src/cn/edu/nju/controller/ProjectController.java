@@ -109,7 +109,7 @@ public class ProjectController {
 //			System.out.println(string);
 //		}
 		String leader=request.getParameter("leader");
-		String[] members=request.getParameterValues("members");
+//		String[] members=request.getParameterValues("members");
 		String description=request.getParameter("description");
 		String amount=request.getParameter("amount");
 		String begindate=request.getParameter("beginDate");
@@ -119,7 +119,7 @@ public class ProjectController {
 		model.addAttribute("begin", begindate);
 		model.addAttribute("end", enddate);
 		model.addAttribute("leader",leader);
-		model.addAttribute("members", members);
+//		model.addAttribute("members", members);
 		List<User> userList=userService.getAllUserByRole(User.ROLE_USER);
 		model.addAttribute("userlist", userList);
 		List<Item> itemList=itemService.getAllItems();
@@ -130,10 +130,11 @@ public class ProjectController {
 		for (String itemString : items) {
 			int itemId=Integer.parseInt(itemString);
 			Short itemAmount=Short.parseShort(request.getParameter(itemString));
-			model.addAttribute(itemString, itemAmount);
 			itemMap.put(itemId, itemAmount);
 		}
-		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
+		model.addAttribute("map", itemMap);
+		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")) {
+//			if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
 			request.setAttribute("message", "please complete this page");
 			return "manager/addProject";
 		}
@@ -151,14 +152,14 @@ public class ProjectController {
 		}
 		int leaderID=Integer.parseInt(leader);
 		ArrayList<Integer> membersID=new ArrayList<Integer>();
-		for (String s : members) {
-			int temp=Integer.parseInt(s);
-			if (temp==leaderID) {
-				request.setAttribute("message", "leader and member should not be the same one");
-				return "manager/addProject";
-			}
-			membersID.add(temp);
-		}
+//		for (String s : members) {
+//			int temp=Integer.parseInt(s);
+//			if (temp==leaderID) {
+//				request.setAttribute("message", "leader and member should not be the same one");
+//				return "manager/addProject";
+//			}
+//			membersID.add(temp);
+//		}
 		Project project = new Project(amountint,begin,end);
 		project.setDescription(description);
 		projectService.addProject(project,leaderID,membersID,itemMap);
@@ -213,13 +214,13 @@ public class ProjectController {
 		List<Item> itemList=itemService.getAllItems();
 		model.addAttribute("itemlist", itemList);
 		Map<Integer, Short> itemMap=projectService.getItemsFromProjectID(projectID);
+		model.addAttribute("map",itemMap);
 		ArrayList<String> temp=new ArrayList<String>();
 		Iterator<Entry<Integer, Short>> iter=itemMap.entrySet().iterator();
 		while (iter.hasNext()) {
 			Entry<Integer, Short> entry=iter.next();
 			String itemString=String.valueOf(entry.getKey());
 			temp.add(itemString);
-			model.addAttribute(itemString, entry.getValue());
 		}
 		model.addAttribute("items", temp.toArray(new String[temp.size()]));
 		temp.clear();
@@ -253,7 +254,7 @@ public class ProjectController {
 		}
 		int id=Integer.parseInt(request.getParameter("projectID"));
 		String leader=request.getParameter("leader");
-		String[] members=request.getParameterValues("members");
+//		String[] members=request.getParameterValues("members");
 		String description=request.getParameter("description");
 		String amount=request.getParameter("amount");
 		String begindate=request.getParameter("beginDate");
@@ -263,7 +264,7 @@ public class ProjectController {
 		model.addAttribute("begin", begindate);
 		model.addAttribute("end", enddate);
 		model.addAttribute("leader",leader);
-		model.addAttribute("members", members);
+//		model.addAttribute("members", members);
 		List<User> userList=userService.getAllUserByRole(User.ROLE_USER);
 		model.addAttribute("userlist", userList);
 		List<Item> itemList=itemService.getAllItems();
@@ -274,10 +275,11 @@ public class ProjectController {
 		for (String itemString : items) {
 			int itemId=Integer.parseInt(itemString);
 			Short itemAmount=Short.parseShort(request.getParameter(itemString));
-			model.addAttribute(itemString, itemAmount);
 			itemMap.put(itemId, itemAmount);
 		}
-		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
+		model.addAttribute("map", itemMap);
+		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")) {
+//			if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
 			request.setAttribute("message", "please complete this page");
 			return "manager/addProject";
 		}
@@ -295,14 +297,14 @@ public class ProjectController {
 		}
 		int leaderID=Integer.parseInt(leader);
 		ArrayList<Integer> membersID=new ArrayList<Integer>();
-		for (String s : members) {
-			int temp=Integer.parseInt(s);
-			if (temp==leaderID) {
-				request.setAttribute("message", "leader and member should not be the same one");
-				return "manager/addProject";
-			}
-			membersID.add(temp);
-		}
+//		for (String s : members) {
+//			int temp=Integer.parseInt(s);
+//			if (temp==leaderID) {
+//				request.setAttribute("message", "leader and member should not be the same one");
+//				return "manager/addProject";
+//			}
+//			membersID.add(temp);
+//		}
 		Project project = new Project(amountint,begin,end);
 		project.setDescription(description);
 		project.setPid(id);

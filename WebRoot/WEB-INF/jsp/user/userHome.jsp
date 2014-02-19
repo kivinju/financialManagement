@@ -44,6 +44,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	})
 			}
 			})
+			$(".ver_reject").click(function(){
+				var projectid=$(this).parent().parent().find(".ver_project").text();
+				var userid=$(this).parent().parent().find(".ver_user").text();
+				var itemid=$(this).parent().parent().find(".ver_item").attr("id");
+				var sure=confirm("Are you sure to reject this application?");
+			if(sure){
+				$(this).parent().parent().addClass("choose");
+				$.ajax({  
+                   type: "GET",  
+                   url: "user/rejectApplication",  
+                   data: {projectId:projectid,userId:userid,itemId:itemid},  
+                    contentType: 'application/json',
+                   success:function(data){
+                       alert("You have successfully reject this application!");
+                   	   $(".choose").fadeOut("slow");  
+                   }  
+            	})
+			}
+			})
 		})
 	</script>
 
@@ -77,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><fmt:formatDate type="date" dateStyle="long" value="${project.endDate }" /></td>
 					<td>${project.amount }</td>
 					<td>${map.value }</td>
-					<td><a href='<c:url value="" />'>编辑</td>
+					<td><a href='<c:url value="user/leadProject?id=${project.pid }" />'>编辑</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -105,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><fmt:formatDate type="date" dateStyle="long" value="${project.endDate }" /></td>
 					<td>${project.amount }</td>
 					<td>${map.value }</td>
-					<td><a href='<c:url value="" />'>报销</a></td>
+					<td><a href='<c:url value="user/writeApplication?pid=${project.pid }" />'>报销</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -184,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:otherwise>未知状态</c:otherwise>
 					</c:choose>
 					</td>
-					<td><a href='<c:url value="" />'>修改</a></td>
+					<td><a href='<c:url value="user/reviseApplication?pid=${ver.id.project.pid }&iid=${ver.id.item.iid }" />'>修改</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

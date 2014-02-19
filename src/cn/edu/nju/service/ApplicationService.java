@@ -1,6 +1,7 @@
 package cn.edu.nju.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -51,6 +52,17 @@ public class ApplicationService {
 		ApplicationId id=new ApplicationId(userDAO.findById(userId), projectDAO.findById(projectId), itemDAO.findById(itemId));
 		Application application=applicationDAO.findById(id);
 		application.setState(state);
+		applicationDAO.merge(application);
+	}
+
+	public Application getApplicationFromId(int sessionId, int projectId,
+			int itemId) {
+		return applicationDAO.findById(new ApplicationId(userDAO.findById(sessionId), projectDAO.findById(projectId), itemDAO.findById(itemId)));
+	}
+
+	public void submitApplication(int sessionId, int pid, int iid, int amount) {
+		ApplicationId id=new ApplicationId(userDAO.findById(sessionId), projectDAO.findById(pid), itemDAO.findById(iid));
+		Application application=new Application(id, amount, Application.WAITLEADER, new Date());
 		applicationDAO.merge(application);
 	}
 	
