@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import cn.edu.nju.entity.Upmapping;
+
 /**
  * A data access object (DAO) providing persistence and search support for
  * Upmapping entities. Transaction control of the save(), update() and delete()
@@ -15,7 +17,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see cn.edu.nju.dao.Upmapping
+ * @see cn.edu.nju.entity.Upmapping
  * @author MyEclipse Persistence Tools
  */
 
@@ -51,11 +53,11 @@ public class UpmappingDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Upmapping findById(cn.edu.nju.dao.UpmappingId id) {
+	public Upmapping findById(cn.edu.nju.entity.UpmappingId id) {
 		log.debug("getting Upmapping instance with id: " + id);
 		try {
 			Upmapping instance = (Upmapping) getHibernateTemplate().get(
-					"cn.edu.nju.dao.Upmapping", id);
+					"cn.edu.nju.entity.Upmapping", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

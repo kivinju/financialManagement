@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import cn.edu.nju.entity.Application;
+
 /**
  * A data access object (DAO) providing persistence and search support for
  * Application entities. Transaction control of the save(), update() and
@@ -17,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * transactions. Each of these methods provides additional information for how
  * to configure it for the desired type of transaction control.
  * 
- * @see cn.edu.nju.dao.Application
+ * @see cn.edu.nju.entity.Application
  * @author MyEclipse Persistence Tools
  */
 
@@ -54,11 +56,11 @@ public class ApplicationDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Application findById(cn.edu.nju.dao.ApplicationId id) {
+	public Application findById(cn.edu.nju.entity.ApplicationId id) {
 		log.debug("getting Application instance with id: " + id);
 		try {
 			Application instance = (Application) getHibernateTemplate().get(
-					"cn.edu.nju.dao.Application", id);
+					"cn.edu.nju.entity.Application", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

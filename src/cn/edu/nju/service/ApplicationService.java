@@ -8,16 +8,16 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.edu.nju.dao.Application;
 import cn.edu.nju.dao.ApplicationDAO;
-import cn.edu.nju.dao.ApplicationId;
 import cn.edu.nju.dao.ItemDAO;
-import cn.edu.nju.dao.Project;
 import cn.edu.nju.dao.ProjectDAO;
-import cn.edu.nju.dao.Upmapping;
 import cn.edu.nju.dao.UpmappingDAO;
-import cn.edu.nju.dao.User;
 import cn.edu.nju.dao.UserDAO;
+import cn.edu.nju.entity.Application;
+import cn.edu.nju.entity.ApplicationId;
+import cn.edu.nju.entity.Project;
+import cn.edu.nju.entity.Upmapping;
+import cn.edu.nju.entity.User;
 
 @Service
 public class ApplicationService {
@@ -40,10 +40,27 @@ public class ApplicationService {
 		}
 		return applications;
 	}
-
+	
+	/**
+	 * 返回所有user.uid为sessionId的申请
+	 * @param sessionId
+	 * @return
+	 */
 	public List<Application> getApplicationsFromMember(int sessionId) {
 		List<Application> applications=applicationDAO.findByProperty("id.user.uid", sessionId);
 		return applications;
+	}
+
+	public List<Application> getApplicationsFromPid(int projectId) {
+		List<Application> applications=applicationDAO.findByProperty("id.project.pid", projectId);
+		for (Application application : applications) {
+			System.err.println(application.getId().getUser().getUname()+application.getId().getItem().getName());
+		}
+		return applications;
+	}
+	
+	public List<Application> getApplicationsChecking() {
+		return applicationDAO.findByState(Application.WAITCHECKER);
 	}
 
 	public void changeApplicationState(short state, int projectId,
@@ -65,6 +82,7 @@ public class ApplicationService {
 		Application application=new Application(id, amount, Application.WAITLEADER, new Date());
 		applicationDAO.merge(application);
 	}
+
 	
 	
 	

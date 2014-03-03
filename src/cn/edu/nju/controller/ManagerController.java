@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sun.org.apache.regexp.internal.RE;
 
-import cn.edu.nju.dao.User;
 import cn.edu.nju.dao.UserDAO;
+import cn.edu.nju.entity.User;
 import cn.edu.nju.service.UserService;
 
 @Controller
@@ -88,8 +88,12 @@ public class ManagerController {
 			return "manager/managerHome";
 		}else if (userrole==1) {
 			response.sendRedirect(basePath+"userhome");
+		}else if (userrole==2) {
+			response.sendRedirect(basePath+"checkerhome");
+		}else if (userrole==3) {
+			response.sendRedirect(basePath+"directorhome");
 		}
-		System.out.println(userrole);
+		System.out.println("undefine:"+userrole);
 		return null;
 	}
 	
@@ -155,7 +159,7 @@ public class ManagerController {
 	}
 	
 	@RequestMapping("/manager/addUser")
-	public String addUser2(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String addUser2(HttpServletRequest request,HttpServletResponse response,Model model) throws IOException{
 		String path = request.getContextPath();
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 		HttpSession session=request.getSession(false);
@@ -177,6 +181,9 @@ public class ManagerController {
 		String cardnum=request.getParameter("cardnum");
 		String banknum=request.getParameter("banknum");
 		Short role=Short.parseShort(request.getParameter("role"));
+		User tempUser=new User(cardnum, banknum, role, name, password);
+		model.addAttribute("user", tempUser);
+		
 		if (name==null||name.equals("")||password==null||password.equals("")||confirm==null||confirm.equals("")) {
 			request.setAttribute("message", "please complete this page");
 			return "manager/addUser";
@@ -191,6 +198,10 @@ public class ManagerController {
 		}
 		if (banknum.length()>19){
 			request.setAttribute("message","Bank number must has less than 20 characters");
+			return "manager/addUser";
+		}
+		if(userService.hasCardnum(cardnum)){
+			request.setAttribute("message","We already have this card number, please type again!");
 			return "manager/addUser";
 		}
 		User user=new User(cardnum, banknum, role, name, password);
@@ -264,6 +275,10 @@ public class ManagerController {
 		}
 		if (banknum.length()>19){
 			request.setAttribute("message","Bank number must has less than 20 characters");
+			return "manager/reviseUser";
+		}
+		if(userService.hasCardnum(cardnum)){
+			request.setAttribute("message","We already have this card number, please type again!");
 			return "manager/reviseUser";
 		}
 		user=new User(cardnum, banknum, role, name, password);

@@ -101,5 +101,4 @@ xmlns:tx="http://www.springframework.org/schema/tx"
         <property name="dataSource" ref="dataSource" />  
     </bean>  
     <tx:annotation-driven transaction-manager="transactionManager" />  
-	
-</beans>
+	</beans>

@@ -18,11 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.edu.nju.dao.Application;
-import cn.edu.nju.dao.Ipmapping;
-import cn.edu.nju.dao.Project;
-import cn.edu.nju.dao.Upmapping;
-import cn.edu.nju.dao.User;
+import cn.edu.nju.entity.Application;
+import cn.edu.nju.entity.Ipmapping;
+import cn.edu.nju.entity.Project;
+import cn.edu.nju.entity.Upmapping;
+import cn.edu.nju.entity.User;
 import cn.edu.nju.service.ApplicationService;
 import cn.edu.nju.service.ItemService;
 import cn.edu.nju.service.ProjectService;

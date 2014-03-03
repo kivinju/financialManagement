@@ -4,3 +4,4 @@ SpringMVC+Spring+Hibernate
 		  （这些地方有一部分是用javascript完成，比如填写比率的可填写和不可填写部分，大部分是交由后台controller处理）
 2,一步步学习，开始在界面中比较多的用request，session，后来逐渐开始用jstl，越来越觉得jstl各种前缀很方便
 		hibernate开始用的比较烦，后来设置lazy=false就方便使用很多
+3,创建用户时，检查卡号是否重复

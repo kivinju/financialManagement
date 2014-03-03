@@ -22,9 +22,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.edu.nju.dao.Item;
-import cn.edu.nju.dao.Project;
-import cn.edu.nju.dao.User;
+import cn.edu.nju.entity.Item;
+import cn.edu.nju.entity.Project;
+import cn.edu.nju.entity.User;
 import cn.edu.nju.service.ItemService;
 import cn.edu.nju.service.ProjectService;
 import cn.edu.nju.service.UserService;

@@ -15,20 +15,20 @@ import org.springframework.stereotype.Service;
 
 import com.sun.org.apache.regexp.internal.recompile;
 
-import cn.edu.nju.dao.Application;
 import cn.edu.nju.dao.ApplicationDAO;
-import cn.edu.nju.dao.Ipmapping;
 import cn.edu.nju.dao.IpmappingDAO;
-import cn.edu.nju.dao.IpmappingId;
-import cn.edu.nju.dao.Item;
 import cn.edu.nju.dao.ItemDAO;
-import cn.edu.nju.dao.Project;
 import cn.edu.nju.dao.ProjectDAO;
-import cn.edu.nju.dao.Upmapping;
 import cn.edu.nju.dao.UpmappingDAO;
-import cn.edu.nju.dao.UpmappingId;
-import cn.edu.nju.dao.User;
 import cn.edu.nju.dao.UserDAO;
+import cn.edu.nju.entity.Application;
+import cn.edu.nju.entity.Ipmapping;
+import cn.edu.nju.entity.IpmappingId;
+import cn.edu.nju.entity.Item;
+import cn.edu.nju.entity.Project;
+import cn.edu.nju.entity.Upmapping;
+import cn.edu.nju.entity.UpmappingId;
+import cn.edu.nju.entity.User;
 
 @Service
 public class ProjectService {

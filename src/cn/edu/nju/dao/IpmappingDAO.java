@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import cn.edu.nju.entity.Ipmapping;
+
 /**
  * A data access object (DAO) providing persistence and search support for
  * Ipmapping entities. Transaction control of the save(), update() and delete()
@@ -15,7 +17,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see cn.edu.nju.dao.Ipmapping
+ * @see cn.edu.nju.entity.Ipmapping
  * @author MyEclipse Persistence Tools
  */
 
@@ -52,11 +54,11 @@ public class IpmappingDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Ipmapping findById(cn.edu.nju.dao.IpmappingId id) {
+	public Ipmapping findById(cn.edu.nju.entity.IpmappingId id) {
 		log.debug("getting Ipmapping instance with id: " + id);
 		try {
 			Ipmapping instance = (Ipmapping) getHibernateTemplate().get(
-					"cn.edu.nju.dao.Ipmapping", id);
+					"cn.edu.nju.entity.Ipmapping", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

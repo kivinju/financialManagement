@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import cn.edu.nju.entity.User;
+
 /**
  * A data access object (DAO) providing persistence and search support for User
  * entities. Transaction control of the save(), update() and delete() operations
@@ -16,7 +18,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * provides additional information for how to configure it for the desired type
  * of transaction control.
  * 
- * @see cn.edu.nju.dao.User
+ * @see cn.edu.nju.entity.User
  * @author MyEclipse Persistence Tools
  */
 
@@ -59,7 +61,7 @@ public class UserDAO extends HibernateDaoSupport {
 		log.debug("getting User instance with id: " + id);
 		try {
 			User instance = (User) getHibernateTemplate().get(
-					"cn.edu.nju.dao.User", id);
+					"cn.edu.nju.entity.User", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

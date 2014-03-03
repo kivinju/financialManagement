@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*,cn.edu.nju.dao.User" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,cn.edu.nju.entity.User" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -26,16 +27,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%@ include file="../template/header.jsp"%>
     
     <form action="manager/addUser" method="POST">
-    	Name:<input type="text" name="name"/><br />
-    	Password:<input type="password" name="password"/><br />
+    	Name:<input type="text" name="name" value="${user.uname}"/><br />
+    	Password:<input type="password" name="password" value="${user.password}"/><br />
     	Password Confirm:<input type="password" name="confirm"/><br />
-    	Card Number:<input type="text" name="cardnum"/><br />
-    	Bank Number:<input type="text" name="banknum"/><br />
+    	Card Number:<input type="text" name="cardnum" value="${user.cardnum}"/><br />
+    	Bank Number:<input type="text" name="banknum" value="${user.banknum}"/><br />
     	Role:<select name="role">
-			<option value="<%=User.ROLE_MANAGER %>">Manager</option>
-			<option value="<%=User.ROLE_USER %>">User</option>
-			<option value="<%=User.ROLE_CHECKER %>">Checker</option>
-			<option value="<%=User.ROLE_DIRECTOR %>">Director</option>
+			<option value="<%=User.ROLE_MANAGER %>" <c:if test="${user.role==0}">selected="selected"</c:if> >Manager</option>
+			<option value="<%=User.ROLE_USER %>" <c:if test="${user.role==1}">selected="selected"</c:if> >User</option>
+			<option value="<%=User.ROLE_CHECKER %>" <c:if test="${user.role==2}">selected="selected"</c:if> >Checker</option>
+			<option value="<%=User.ROLE_DIRECTOR %>" <c:if test="${user.role==3}">selected="selected"</c:if> >Director</option>
 		</select><br />
 		<input type="submit" value="submit" />
 	</form>

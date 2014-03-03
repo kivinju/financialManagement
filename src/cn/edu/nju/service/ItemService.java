@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.edu.nju.dao.Ipmapping;
 import cn.edu.nju.dao.IpmappingDAO;
-import cn.edu.nju.dao.Item;
 import cn.edu.nju.dao.ItemDAO;
+import cn.edu.nju.entity.Ipmapping;
+import cn.edu.nju.entity.Item;
 
 @Service
 public class ItemService {

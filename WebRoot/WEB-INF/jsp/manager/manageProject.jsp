@@ -1,4 +1,4 @@
-<%@page import="cn.edu.nju.dao.Project"%>
+<%@page import="cn.edu.nju.entity.Project"%>
 <%@ page language="java" import="java.util.*,java.text.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();

@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.edu.nju.dao.User;
 import cn.edu.nju.dao.UserDAO;
+import cn.edu.nju.entity.User;
 
 @Service
 public class UserService {
@@ -62,5 +62,14 @@ public class UserService {
 	public void reviseUser(User user) {
 		// TODO Auto-generated method stub
 		userDAO.merge(user);
+	}
+
+	public boolean hasCardnum(String cardnum) {
+		for (User user : getAllUsers()) {
+			if (user.getCardnum()!=null&&user.getCardnum().equals(cardnum)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
