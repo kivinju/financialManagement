@@ -6,3 +6,6 @@ SpringMVC+Spring+Hibernate
 		hibernate开始用的比较烦，后来设置lazy=false就方便使用很多
 3,创建用户时，检查卡号是否重复
 4，冻结实现，用一个timer每次检查，过期项目就删除
+
+每个加上：
+<meta name="viewport" content="width=device-width, initial-scale=1.0">

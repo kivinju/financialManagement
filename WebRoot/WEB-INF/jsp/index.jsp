@@ -11,6 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     
     <title>Welcome!</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -19,10 +20,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
   </head>
   
   <body>
-  
+  <div class="container">
   <% String message=(String)request.getAttribute("message");if(message!=null){ %>
   	<div><%=message %></div>
   <% } %>
@@ -35,5 +40,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<br />
 		<input type="submit" value="Submit" />
     </form>
+    </div>
   </body>
 </html>

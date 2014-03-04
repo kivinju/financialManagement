@@ -1,9 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 
-id:<%=session.getAttribute("userid") %>
-<br />name:<%=session.getAttribute("username") %>
+
 <% 		String role="未知";
 		Short userrole=(Short) session.getAttribute("userrole");
 		if(userrole==1){//User.ROLE_USER){
@@ -16,7 +15,16 @@ id:<%=session.getAttribute("userid") %>
 			role="财务主管";
 		}
  %>
-<br />role:<%=role %>
-<br /><a href="logout">logout</a>
-<br /><a href="user">home</a>
-<hr />
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<ul id="nav_head">
+<li><a href="user">Home</a></li>
+<li><a href="logout">Logout</a></li>
+<li id="nav_title">Online Reimbursement System</li>
+<div id="nav_right">
+<li>id:<%=session.getAttribute("userid") %></li>
+<li>name:<%=session.getAttribute("username") %></li>
+<li>role:<%=role %></li>
+</div>
+</ul>
+</nav>
+<div class="container">

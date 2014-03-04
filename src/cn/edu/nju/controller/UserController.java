@@ -126,7 +126,12 @@ public class UserController {
 		model.addAttribute("project", projectService.getProject(projectId));
 		
 		List<User> userList=userService.getAllUserByRole(User.ROLE_USER);
-		userList.remove(userService.getUser(sessionId));
+		//添加成员需要把主持人给移除
+		for (User user : userList) {
+			if (user.getUid()==sessionId) {
+				userList.remove(user);
+			}
+		}
 		model.addAttribute("userlist", userList);
 		ArrayList<String> temp=new ArrayList<String>();
 		ArrayList<Integer> members=projectService.getMembersFromProjectID(projectId);
