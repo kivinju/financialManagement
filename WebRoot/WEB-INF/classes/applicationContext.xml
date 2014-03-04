@@ -101,4 +101,20 @@ xmlns:tx="http://www.springframework.org/schema/tx"
         <property name="dataSource" ref="dataSource" />  
     </bean>  
     <tx:annotation-driven transaction-manager="transactionManager" />  
+    
+    <bean id="checkTimer" class="cn.edu.nju.service.CheckTimer"></bean>
+    
+    <bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+    	<property name="delay" value="10000"></property>
+    	<property name="period" value="86400000"></property>
+    	<property name="timerTask" ref="checkTimer"></property>
+    </bean>
+    <bean id="tiemrFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
+    	<property name="scheduledTimerTasks">
+    		<list>
+    			<ref local="scheduledTask" />
+    		</list>
+    	</property>
+    </bean>
+    
 	</beans>

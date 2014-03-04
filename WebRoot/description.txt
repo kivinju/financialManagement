@@ -5,3 +5,4 @@ SpringMVC+Spring+Hibernate
 2,一步步学习，开始在界面中比较多的用request，session，后来逐渐开始用jstl，越来越觉得jstl各种前缀很方便
 		hibernate开始用的比较烦，后来设置lazy=false就方便使用很多
 3,创建用户时，检查卡号是否重复
+4，冻结实现，用一个timer每次检查，过期项目就删除

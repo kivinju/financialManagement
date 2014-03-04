@@ -50,8 +50,6 @@ public class ProjectDAO extends HibernateDaoSupport {
 		}
 	}
 
-	
-	
 	public void delete(Project persistentInstance) {
 		log.debug("deleting Project instance");
 		try {
