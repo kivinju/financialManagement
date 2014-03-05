@@ -127,16 +127,16 @@ public class ProjectController {
 		String[] items=request.getParameterValues("item");
 		model.addAttribute("items", items);
 		Map<Integer, Short> itemMap=new HashMap<Integer, Short>();
+		model.addAttribute("map", itemMap);
+		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||items==null||items.length==0) {
+//			if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
+			request.setAttribute("message", "please complete this page");
+			return "manager/addProject";
+		}
 		for (String itemString : items) {
 			int itemId=Integer.parseInt(itemString);
 			Short itemAmount=Short.parseShort(request.getParameter(itemString));
 			itemMap.put(itemId, itemAmount);
-		}
-		model.addAttribute("map", itemMap);
-		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")) {
-//			if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
-			request.setAttribute("message", "please complete this page");
-			return "manager/addProject";
 		}
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		int amountint=Integer.parseInt(amount);
@@ -272,16 +272,16 @@ public class ProjectController {
 		String[] items=request.getParameterValues("item");
 		model.addAttribute("items", items);
 		Map<Integer, Short> itemMap=new HashMap<Integer, Short>();
+		model.addAttribute("map", itemMap);
+		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||items==null||items.length==0) {
+//			if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
+			request.setAttribute("message", "please complete this page");
+			return "manager/addProject";
+		}
 		for (String itemString : items) {
 			int itemId=Integer.parseInt(itemString);
 			Short itemAmount=Short.parseShort(request.getParameter(itemString));
 			itemMap.put(itemId, itemAmount);
-		}
-		model.addAttribute("map", itemMap);
-		if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")) {
-//			if (amount==null||amount.equals("")||begindate==null||enddate==null||begindate.equals("")||enddate.equals("")||description==null||description.equals("")||leader==null||leader.equals("")||members==null||members.length==0) {
-			request.setAttribute("message", "please complete this page");
-			return "manager/addProject";
 		}
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		int amountint=Integer.parseInt(amount);

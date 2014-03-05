@@ -23,17 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <tr>
 <td>
 <a href="<%=basePath %>usermanage"  class="btn btn-primary btn-lg" role="button">usermanage</a>
-<!-- </td>
-<td>manager can add user, revise user or delete user!</td>
- -->
-</tr>
-<tr>
+ </td>
 <td>
 <a href="<%=basePath %>projectmanage"  class="btn btn-primary btn-lg" role="button">projectmanage</a>
 </td>
-<!--<td>
-manager can add project, revise project or delete project!
-<td>-->
 </tr>
 </table>
 <%@ include file="../template/footer.jsp"%>

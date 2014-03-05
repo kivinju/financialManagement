@@ -50,16 +50,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <%@ include file="../template/header.jsp"%>
-    <a href="manager/project/add">add project</a>
-	<table>
+    <a href="manager/project/add" class="btn btn-primary btn-lg">add project</a>
+	<table  class="table table-hover">
 		<thead>
 			<tr>
-				<td>project id</td>
-				<td>amount</td>
-				<td>begin date</td>
-				<td>end date</td>
-				<td>description</td>
-				<td>revise</td>
+				<th>project id</th>
+				<th>amount</th>
+				<th>begin date</th>
+				<th>end date</th>
+				<th>description</th>
+				<th>revise</th>
+				<th>delete</th>
 			</tr>
 		</thead>
 		<tbody>

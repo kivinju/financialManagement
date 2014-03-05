@@ -43,44 +43,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%@ include file="../template/header.jsp"%>
     
     <% if(request.getAttribute("revise")!=null){ %>
-    <form action="manager/project/reviseProject" method="POST">
-    ID:${projectID }
-    <input type="hidden" name="projectID" value="${projectID }" /><br />
+    <h3 class="col-md-offset-3">Revise Project</h3>
+    <form action="manager/project/reviseProject" method="POST"  class="form-horizontal" role="form">
+    <div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">ID</label>
+   	 		<div class="col-md-6">
+    			<p class="form-control-static">${projectID }</p>
+			</div>
+    	</div>
+    <input type="hidden" name="projectID" value="${projectID }" />
     <% }else{ %>
-    <form action="manager/project/addProject" method="POST">
+    <h3 class="col-md-offset-3">Add Project</h3>
+    <form action="manager/project/addProject" method="POST"  class="form-horizontal" role="form">
     <% } %>
-		Description:<input type="text" name="description" value="${description }"/><br />
-		Amount:<input type="number" name="amount" value="${amount }"/><br />
-		Begin Date:<input type="date" name="beginDate" value="${begin }"><br />
-		End Date:<input type="date" name="endDate" value="${end }"><br />
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Description</label>
+   	 		<div class="col-md-6">
+    			<input type="text" name="description" value="${description }"   class="form-control"  placeholder="Enter your project description"/>
+			</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Amount</label>
+   	 		<div class="col-md-6">
+    			<input type="number" name="amount" value="${amount }"  class="form-control"  placeholder="Enter this project amount"/>
+			</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Begin Date</label>
+   	 		<div class="col-md-6">
+    			<input type="date" name="beginDate" value="${begin }" class="form-control" />
+			</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">End Date</label>
+   	 		<div class="col-md-6">
+    			<input type="date" name="endDate" value="${end }" class="form-control" />
+			</div>
+    	</div>
 		<hr />
-		Leader:<c:forEach items="${userlist }" var="user" varStatus="userStatus">
-		<input type="radio" name="leader" value="${user.uid }" <c:if test="${user.uid==leader }">checked</c:if> >${user.uname }		
-		</c:forEach>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Leader</label>
+   	 		<div class="col-md-6">
+				<c:forEach items="${userlist }" var="user" varStatus="userStatus">
+					<label class="radio-inline"><input type="radio" name="leader" value="${user.uid }" <c:if test="${user.uid==leader }">checked</c:if> >${user.uname }</label>	
+				</c:forEach>
+			</div>
+    	</div>
 		<hr />
 <!-- 	Members:<c:forEach items="${userlist }" var="user" varStatus="userStatus">
 		<c:set var="uid">${user.uid}</c:set>
 		<input type="checkbox" name="members" value="${user.uid }" <c:if test="${fn:containsIgnoreCase(fn:join(members,'|'),uid) }">checked</c:if> >${user.uname }
 		</c:forEach>
  -->
- 		<hr />
-		报销：(比例为1到100的整数)
-		<c:forEach items="${itemlist }" var="item" varStatus="itemStatus">
-			<c:set var="itemid">${item.iid}</c:set>
-			<c:choose>
-				<c:when test="${fn:containsIgnoreCase(fn:join(items,'|'),itemid) }">
-					<br /><input type="checkbox" name="item" value="${item.iid }" checked  />${item.name }
-					<input type="number" name="${item.iid }" max="100" min="1" value="${map[item.iid] }" />
-				</c:when>
-				<c:otherwise>
-					<br /><input type="checkbox" name="item" value="${item.iid }"/>${item.name }
-					<input type="number" name="${item.iid }" max="100" min="1" disabled="disabled" value="0" />
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<br /><input type="submit" value="submit" />
+		
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">报销</label>
+   	 		<div class="col-md-6">	 	
+				<c:forEach items="${itemlist }" var="item" varStatus="itemStatus">
+					<c:set var="itemid">${item.iid}</c:set>
+					<c:choose>
+						<c:when test="${fn:containsIgnoreCase(fn:join(items,'|'),itemid) }">
+							<input type="checkbox" name="item" value="${item.iid }" checked  />${item.name }
+							<input type="number" name="${item.iid }" max="100" min="1" value="${map[item.iid] }" />
+							<br />
+						</c:when>
+						<c:otherwise>
+							<input type="checkbox" name="item" value="${item.iid }"/>${item.name }
+							<input type="number" name="${item.iid }" max="100" min="1" disabled="disabled" value="0" />
+							<br />
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</div>
+    	</div>
+    	<div class="form-group">
+    		<div class="col-md-offset-3">
+				<input type="submit" value="submit"  class="btn btn-default"/>
+			</div>
+		</div>
 	</form>
-    <div class="warning"><% String s=(String)request.getAttribute("message");if(s!=null)out.print(s); %></div>
+    <div class="warning col-md-offset-3"><% String s=(String)request.getAttribute("message");if(s!=null)out.print(s); %></div>
     
     <%@ include file="../template/footer.jsp"%>
   </body>

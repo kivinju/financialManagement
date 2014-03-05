@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
@@ -28,18 +29,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   <div class="container">
+    <form action="<%=basePath %>login" method="post"  class="well">
+    	<h2>Online Reimbursement System</h2>
+    	<table id="login_table" >
+    	<tr>
+    	<td>Username:</td>
+    	<td><input type="text" name="username"   <% String name=(String)request.getAttribute("username");if(name!=null){ %> value="<%=name %>"  <% } %>/></td>
+    	</tr>
+    	<tr>
+    	<td>Password:</td>
+    	<td><input type="password" name="password" /></td>
+		</tr>
+		<tr>
+		<td colspan="2"><input type="submit" value="Submit"  id="login_submit"/></td>
+    	</tr>
+    	<tr>
+    	<td colspan="2">
   <% String message=(String)request.getAttribute("message");if(message!=null){ %>
-  	<div><%=message %></div>
-  <% } %>
-    <form action="<%=basePath %>login" method="post">
-    	Username:
-    	<input type="text" name="username"   <% String name=(String)request.getAttribute("username");if(name!=null){ %> value="<%=name %>"  <% } %>/>
-    	<br />
-    	Password:
-    	<input type="password" name="password" />
-    	<br />
-		<input type="submit" value="Submit" />
+  	<div class="warning"><%=message %></div>
+  <% } %></td>
+    	</tr>
+    	</table>
+    	
     </form>
-    </div>
+    <%@ include file="template/footer.jsp"%>
   </body>
 </html>

@@ -127,11 +127,14 @@ public class UserController {
 		
 		List<User> userList=userService.getAllUserByRole(User.ROLE_USER);
 		//添加成员需要把主持人给移除
+		User leader=null;
 		for (User user : userList) {
 			if (user.getUid()==sessionId) {
-				userList.remove(user);
+				leader=user;
+				break;
 			}
 		}
+		userList.remove(leader);
 		model.addAttribute("userlist", userList);
 		ArrayList<String> temp=new ArrayList<String>();
 		ArrayList<Integer> members=projectService.getMembersFromProjectID(projectId);

@@ -29,22 +29,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <%@ include file="../template/header.jsp"%>
-    
-    <form action="manager/addUser" method="POST">
-    	Name:<input type="text" name="name" value="${user.uname}"/><br />
-    	Password:<input type="password" name="password" value="${user.password}"/><br />
-    	Password Confirm:<input type="password" name="confirm"/><br />
-    	Card Number:<input type="text" name="cardnum" value="${user.cardnum}"/><br />
-    	Bank Number:<input type="text" name="banknum" value="${user.banknum}"/><br />
-    	Role:<select name="role">
-			<option value="<%=User.ROLE_MANAGER %>" <c:if test="${user.role==0}">selected="selected"</c:if> >Manager</option>
-			<option value="<%=User.ROLE_USER %>" <c:if test="${user.role==1}">selected="selected"</c:if> >User</option>
-			<option value="<%=User.ROLE_CHECKER %>" <c:if test="${user.role==2}">selected="selected"</c:if> >Checker</option>
-			<option value="<%=User.ROLE_DIRECTOR %>" <c:if test="${user.role==3}">selected="selected"</c:if> >Director</option>
-		</select><br />
-		<input type="submit" value="submit" />
+    	<h3 class="col-md-offset-3">Add User</h3>
+    <form action="manager/addUser" method="POST" class="form-horizontal" role="form">
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Name</label>
+   	 		<div class="col-md-6">
+  		  		<input type="text" name="name" value="${user.uname}"  class="form-control"  placeholder="user name"/>
+    		</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Password</label>
+   	 		<div class="col-md-6">
+  		  		<input type="password" name="password" value="${user.password}"  class="form-control"  placeholder="Ente your password"/>
+    		</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Password Confirm</label>
+   	 		<div class="col-md-6">
+    			<input type="password" name="confirm" class="form-control"  placeholder="Confirm your password"/>
+			</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Card Number</label>
+   	 		<div class="col-md-6">
+    			<input type="text" name="cardnum" value="${user.cardnum}"  class="form-control"  placeholder="Enter your seven-characters card number"/>
+			</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Bank Number</label>
+   	 		<div class="col-md-6">
+    			<input type="text" name="banknum" value="${user.banknum}"  class="form-control"  placeholder="Enter your bank number"/>
+			</div>
+    	</div>
+    	<div class="form-group">
+   	 		<label class="col-md-2 control-label col-md-offset-1">Role</label>
+   	 		<div class="col-md-6">
+		    	<select name="role" class="form-control">
+					<option value="<%=User.ROLE_MANAGER %>" <c:if test="${user.role==0}">selected="selected"</c:if> >Manager</option>
+					<option value="<%=User.ROLE_USER %>" <c:if test="${user.role==1}">selected="selected"</c:if> >User</option>
+					<option value="<%=User.ROLE_CHECKER %>" <c:if test="${user.role==2}">selected="selected"</c:if> >Checker</option>
+					<option value="<%=User.ROLE_DIRECTOR %>" <c:if test="${user.role==3}">selected="selected"</c:if> >Director</option>
+				</select>
+			</div>
+    	</div>
+    	<div class="form-group">
+    		<div class="col-md-offset-3">
+				<input type="submit" value="submit to add user"  class="btn btn-default"/>
+			</div>
+		</div>
 	</form>
-    <div class="warning"><% String s=(String)request.getAttribute("message");if(s!=null)out.print(s); %></div>
+    <div class="warning col-md-offset-3"><% String s=(String)request.getAttribute("message");if(s!=null)out.print(s); %></div>
     
     <%@ include file="../template/footer.jsp"%>
   </body>

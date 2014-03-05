@@ -48,17 +48,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <%@ include file="../template/header.jsp"%>
-    <a href="manager/add">add user</a>
-	<table>
+    <a href="manager/add" class="btn btn-primary btn-lg">add user</a>
+	<table  class="table table-hover">
 		<thead>
 			<tr>
-				<td>user id</td>
-				<td>user name</td>
-				<td>password</td>
-				<td>card number</td>
-				<td>bank number</td>
-				<td>role</td>
-				<td>revise</td>
+				<th>user id</th>
+				<th>user name</th>
+				<th>password</th>
+				<th>card number</th>
+				<th>bank number</th>
+				<th>role</th>
+				<th>revise</th>
+				<th>delete</th>
 			</tr>
 		</thead>
 		<tbody>
