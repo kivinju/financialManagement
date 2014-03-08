@@ -52,50 +52,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+<%@ include file="../template/header.jsp"%>
   <form action="user/leadProject/submit">
   	<input type="hidden" name="id" value="${project.pid }">
-  	<div>
-  		项目信息：<br />
-  		${project.description }<br />
-  		开始时间：<fmt:formatDate type="date" dateStyle="long" value="${project.beginDate }" /><br />
-  		结束时间：<fmt:formatDate type="date" dateStyle="long" value="${project.endDate }" /><br />
+  	<div class="row">
+  		<h2 class="col-md-2">项目信息</h2>
+  		<div class="col-md-3  col-sm-10">
+  			<table class="table table-bordered">
+	  		<tr>
+	  			<th>项目名称</th><td>${project.description }</td>
+	  		</tr>
+	  		<tr>
+	  			<th>开始时间</th><td><fmt:formatDate type="date" dateStyle="long" value="${project.beginDate }" /></td>
+	  		</tr>
+	  		<th>结束时间</th><td><fmt:formatDate type="date" dateStyle="long" value="${project.endDate }" /></td>
+  			</table>
+  		</div>
   	</div>
   	<hr />
-  	<div>
-	选择参与成员<br />
-	<c:forEach items="${userlist }" var="user" varStatus="userStatus">
-		<c:set var="uid">${user.uid}</c:set>
-		<input type="checkbox" name="members" value="${user.uid }" <c:if test="${fn:containsIgnoreCase(fn:join(members,'|'),uid) }">checked</c:if> >${user.uname }
-	</c:forEach>
+  	<div class="row">
+		<h2 class="col-md-2">选择成员</h2>
+		<div class="col-md-8 col-sm-10">
+			<c:forEach items="${userlist }" var="user" varStatus="userStatus">
+				<c:set var="uid">${user.uid}</c:set>
+				<input type="checkbox" name="members" value="${user.uid }" <c:if test="${fn:containsIgnoreCase(fn:join(members,'|'),uid) }">checked</c:if> >${user.uname }
+			</c:forEach>
+		</div>
 	</div>
   	<hr />
-	<div>
-	支配项目经费<br />
-	总额：<span id="sumamount">${project.amount }</span><br />
-	可支配：<span id="leftamount">${project.amount }</span><br />
-	<input type="hidden" name="left" value="${project.amount }" />
-	<table>
-		<thead>
-			<tr>
-				<td>报销项目名</td>
-				<td>报销比例</td>
-				<td>可报销额</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="ip" items="${iplist }">
-				<tr>
-					<td>${ip.id.item.name }</td>
-					<td>${ip.rate }%</td>
-					<td><input class="price" type="number" name="${ip.id.item.iid }" value="${ip.amount }"/></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	<div class="row">
+		<h2 class="col-md-2">项目经费</h2>
+		<div class="col-md-4  col-sm-10">
+			总额：<span id="sumamount">${project.amount }</span><br />
+			可支配：<span id="leftamount">${project.amount }</span><br />
+			<input type="hidden" name="left" value="${project.amount }" />
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<td>报销项目名</td>
+						<td>报销比例</td>
+						<td>可报销额</td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="ip" items="${iplist }">
+						<tr>
+							<td>${ip.id.item.name }</td>
+							<td>${ip.rate }%</td>
+							<td><input class="price" type="number" name="${ip.id.item.iid }" value="${ip.amount }"/></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<input type="submit" value="submit" />
+	<input type="submit" value="submit"  class="btn btn-default"/>
 	<div class="warning"><% String s=(String)request.getAttribute("message");if(s!=null)out.print(s); %></div>
     
    </form>
+<%@ include file="../template/footer.jsp"%>
   </body>
 </html>

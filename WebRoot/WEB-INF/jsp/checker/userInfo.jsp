@@ -31,21 +31,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 <%@ include file="../template/header.jsp"%>
-		uid:${user.uid }<br />
-		cardnum:${user.cardnum }<br />
-		banknum:${user.banknum }<br />
-		userrole:${userrole }<br />
-		name:${user.uname }<br />
+	<div class="row">
+		<div class="col-md-5">
+		<table class="table table-hover table-striped">
+		<caption><h2>用户信息</h2></caption>
+			<tr><th>uid:</th><td>${user.uid }</td></tr>
+			<tr><th>cardnum:</th><td>${user.cardnum }</td></tr>
+			<tr><th>banknum:</th><td>${user.banknum }</td></tr>
+			<tr><th>userrole:</th><td>${userrole }</td></tr>
+			<tr><th>name:</th><td>${user.uname }</td></tr>
+		</table>
+		</div>
+		<div class="col-md-5 col-md-offset-1">
+			<!-- 统计信息 -->
+			<c:if test="${director }">
+				<table class="table table-hover table-striped">
+				<caption><h2>报销统计</h2></caption>
+				<thead>
+				<tr>
+					<th>月份</th>
+					<th>报销金额</th>
+				</tr>
+				</thead>
+				<c:forEach var="entry" items="${map }">
+					<tr>
+						<td>${entry.key }</td>
+						<td>${entry.value }</td>
+					</tr>
+				</c:forEach>
+				</table>
+			</c:if>
+		</div>
+	</div>
 		<c:if test="${!empty user.upmappings}">
-			<p>参与项目：</p>
-		<table>
+		<table class="table table-hover table-striped">
+		<caption><h2>参与项目</h2></caption>
 		<thead>
 			<tr>
-				<td>project id</td>
-				<td>amount</td>
-				<td>begin date</td>
-				<td>end date</td>
-				<td>description</td>
+				<th>project id</th>
+				<th>amount</th>
+				<th>begin date</th>
+				<th>end date</th>
+				<th>description</th>
+				<th>role</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,16 +95,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 		</c:if>
 		<c:if test="${!empty user.applications}">
-			<p>申请：</p>
-	<table>
+			<p></p>
+	<table class="table table-hover table-striped">
+		<caption><h2>申请报销</h2></caption>
 		<thead>
 			<tr>
-				<td>项目id</td>
-				<td>项目名称</td>
-				<td>报销项目</td>
-				<td>报销金额</td>
-				<td>提交时间</td>
-				<td>状态</td>
+				<th>项目id</th>
+				<th>项目名称</th>
+				<th>报销项目</th>
+				<th>报销金额</th>
+				<th>提交时间</th>
+				<th>状态</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -100,23 +129,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</c:forEach>
 		</tbody>
 	</table>
-		</c:if>
-		<!-- 统计信息 -->
-		<c:if test="${director }">
-			<hr />
-			报销统计：
-			<table>
-			<tr>
-				<td>月份</td>
-				<td>报销金额</td>
-			</tr>
-			<c:forEach var="entry" items="${map }">
-				<tr>
-					<td>${entry.key }</td>
-					<td>${entry.value }</td>
-				</tr>
-			</c:forEach>
-			</table>
 		</c:if>
 <%@ include file="../template/footer.jsp"%>
   </body>

@@ -173,7 +173,9 @@ public class ProjectService {
 		int amount=0;
 		List<Application> applications=applicationDAO.findByProjectId(projectId, Application.SUCCESS);
 		for (Application application : applications) {
-			amount+=application.getAmount();
+			//已使用的钱需要乘上比例
+			Short rate=ipmappingDAO.findById(new IpmappingId(application.getId().getProject(), application.getId().getItem())).getRate();
+			amount+=(application.getAmount()*rate/100);
 		}
 		return amount;
 	}

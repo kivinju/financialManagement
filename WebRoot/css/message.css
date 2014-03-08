@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+#message_well{
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
+	font-size: large;
+}

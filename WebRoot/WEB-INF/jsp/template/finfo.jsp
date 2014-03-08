@@ -1,17 +1,17 @@
 <%@ page language="java" import="java.util.*,cn.edu.nju.entity.*,java.text.*" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-用户信息：
-	<table>
+<h2>用户信息：</h2>
+	<table class="table table-hover table-striped">
 		<thead>
 			<tr>
-				<td>user id</td>
-				<td>user name</td>
-				<td>password</td>
-				<td>card number</td>
-				<td>bank number</td>
-				<td>role</td>
-				<td>detailed info</td>
+				<th>user id</th>
+				<th>user name</th>
+				<th>password</th>
+				<th>card number</th>
+				<th>bank number</th>
+				<th>role</th>
+				<th>detailed info</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,16 +41,16 @@
 	<% } %>
 		</tbody>
 	</table>
-项目信息
-<table>
+<h2>项目信息:</h2>
+<table class="table table-hover table-striped">
 		<thead>
 			<tr>
-				<td>project id</td>
-				<td>amount</td>
-				<td>begin date</td>
-				<td>end date</td>
-				<td>description</td>
-				<td>info</td>
+				<th>project id</th>
+				<th>amount</th>
+				<th>begin date</th>
+				<th>end date</th>
+				<th>description</th>
+				<th>detailed info</th>
 			</tr>
 		</thead>
 		<tbody>

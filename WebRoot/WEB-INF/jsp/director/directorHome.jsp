@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <%@ include file="../template/header.jsp"%>  	
  	
- 	<div> 详细统计情况请访问下面各用户各项目信息：</div>
+ 	<h1> 详细统计情况请访问下面各用户各项目信息：</h1>
   <%@ include file="../template/finfo.jsp"%>
   <%@ include file="../template/footer.jsp"%>
   </body>

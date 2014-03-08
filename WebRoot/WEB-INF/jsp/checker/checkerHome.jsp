@@ -73,20 +73,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <%@ include file="../template/header.jsp"%>
 <div>
-	审核：
-	<table>
+	<h2>审核：</h2>
+	<table class="table table-hover table-striped">
 		<thead>
 			<tr>
-				<td>项目id</td>
-				<td>项目名称</td>
-				<td>提交成员id</td>
-				<td>成员名称</td>
-				<td>报销项目</td>
-				<td>报销金额</td>
-				<td>可报销比例</td>
-				<td>到手金额</td>
-				<td>提交时间</td>
-				<td>是否批准</td>
+				<th>项目id</th>
+				<th>项目名称</th>
+				<th>提交成员id</th>
+				<th>成员名称</th>
+				<th>报销项目</th>
+				<th>报销金额</th>
+				<th>可报销比例</th>
+				<th>到手金额</th>
+				<th>提交时间</th>
+				<th>是否批准</th>
 			</tr>
 		</thead>
 		<tbody>

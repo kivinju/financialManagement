@@ -75,18 +75,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ include file="../template/header.jsp"%>
 
 <div>
-我的项目：<br />
-	主持:<br />
-	<table>
+	<h2>主持：</h2>
+	<table class="table table-hover">
 		<thead>
 			<tr>
-				<td>项目编号</td>
-				<td>项目描述</td>
-				<td>开始日期</td>
-				<td>结束日期</td>
-				<td>项目金额</td>
-				<td>已使用</td>
-				<td>调配人员与金额</td>
+				<th>项目编号</th>
+				<th>项目描述</th>
+				<th>开始日期</th>
+				<th>结束日期</th>
+				<th>项目金额</th>
+				<th>已使用</th>
+				<th>调配人员与金额</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -104,50 +103,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</c:forEach>
 		</tbody>
 	</table>
-	参与：<br />
-	<table>
-		<thead>
-			<tr>
-				<td>项目编号</td>
-				<td>项目描述</td>
-				<td>开始日期</td>
-				<td>结束日期</td>
-				<td>项目金额</td>
-				<td>已使用</td>
-				<td>报销</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${partProject }" var="map">
-				<c:set var="project" value="${map.key }" ></c:set>
-				<tr>
-					<td>${project.pid }</td>
-					<td>${project.description }</td>
-					<td><fmt:formatDate type="date" dateStyle="long" value="${project.beginDate }" /></td>
-					<td><fmt:formatDate type="date" dateStyle="long" value="${project.endDate }" /></td>
-					<td>${project.amount }</td>
-					<td>${map.value }</td>
-					<td><a href='<c:url value="user/writeApplication?pid=${project.pid }" />'>报销</a></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>	
 </div>
 <div>
-	审核：
-	<table>
+	<h3>审核报销：</h3>
+	<table class="table table-hover">
 		<thead>
 			<tr>
-				<td>项目id</td>
-				<td>项目名称</td>
-				<td>提交成员id</td>
-				<td>成员名称</td>
-				<td>报销项目</td>
-				<td>报销金额</td>
-				<td>可报销比例</td>
-				<td>到手金额</td>
-				<td>提交时间</td>
-				<td>是否批准</td>
+				<th>项目编号</th>
+				<th>项目名称</th>
+				<th>提交成员编号</th>
+				<th>成员名称</th>
+				<th>报销项目</th>
+				<th>报销金额</th>
+				<th>可报销比例</th>
+				<th>到手金额</th>
+				<th>提交时间</th>
+				<th>是否批准</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -170,26 +141,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tbody>
 	</table>
 </div>
+<hr />
 <div>
-	报销项目：
-	<table>
+	<h2>参与：</h2>
+	<table class="table table-hover">
 		<thead>
 			<tr>
-				<td>项目id</td>
-				<td>项目名称</td>
-				<td>报销项目</td>
-				<td>报销金额</td>
-				<td>可报销比例</td>
-				<td>到手金额</td>
-				<td>提交时间</td>
-				<td>状态</td>
-				<td>修改重提交</td>
+				<th>项目编号</th>
+				<th>项目描述</th>
+				<th>开始日期</th>
+				<th>结束日期</th>
+				<th>项目金额</th>
+				<th>已使用</th>
+				<th>报销</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${partProject }" var="map">
+				<c:set var="project" value="${map.key }" ></c:set>
+				<tr>
+					<td>${project.pid }</td>
+					<td>${project.description }</td>
+					<td><fmt:formatDate type="date" dateStyle="long" value="${project.beginDate }" /></td>
+					<td><fmt:formatDate type="date" dateStyle="long" value="${project.endDate }" /></td>
+					<td>${project.amount }</td>
+					<td>${map.value }</td>
+					<td><a href='<c:url value="user/writeApplication?pid=${project.pid }" />'>报销</a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>	
+</div>
+
+<div>
+	<h3>报销项目：</h3>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>项目编号</th>
+				<th>项目名称</th>
+				<th>报销项目</th>
+				<th>报销金额</th>
+				<th>可报销比例</th>
+				<th>到手金额</th>
+				<th>提交时间</th>
+				<th>状态</th>
+				<th>修改重提交</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="map3" items="${applications }">
 				<c:set var="ver" value="${map3.key }" ></c:set>
-				<tr>
+				<tr
+					<c:choose>
+						<c:when test="${ver.state==2 }">class="success"</c:when>
+						<c:when test="${ver.state==3 }">class="danger"</c:when>
+					</c:choose>
+				>
 					<td>${ver.id.project.pid }</td>
 					<td>${ver.id.project.description }</td>
 					<td>${ver.id.item.name }</td>
